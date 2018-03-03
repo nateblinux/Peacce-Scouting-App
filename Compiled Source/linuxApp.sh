@@ -1,0 +1,1 @@
+java -jar apptest.jar
