@@ -2,4 +2,17 @@
 
 This is the scouting app for Operation PEACCE FRC Team 3461
 
-The file App/scouting.html is run on the phone of the person scouting. The QR code generated can be read with the app in CompiledApp. Currently it can only be run on linux. webcam.py is a required script.
+base.py is the base station qr code reader
+
+it requires:
+    -python 3
+    -opencv
+
+it takes 2 arguments:
+ -f output file name
+ -d delay time before reading the next qr code
+
+the FILE_HEADER constant allows for labeling of the columns in the csv file
+
+App/scouting.html is the qr code generator that can be downloaded on phones or other devices, the information is stored in the qr as a csv line
+
