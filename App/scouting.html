@@ -720,12 +720,6 @@ function setupqr(){
 //    window.scrollTo(0,1)
     wd = window.innerWidth-10;
     ht = window.innerHeight-10;
-    mp = document.getElementById("mapcanv");
-
-    qrd = document.getElementById("qrdiv");
-    qrd.style.width = wd + "px";
-    qrd.style.height = ht + "px";
-
     wd -= 4;
     ht -= 80;
 
@@ -738,10 +732,9 @@ function setupqr(){
 
 }
 
-function doqr() {
-    d = document;
-    ecclevel = d.qrinp.ECC.value;
-    qf = genframe(d.qrinp.qrinput.value);
+function doqr(ecc, value) {
+    ecclevel = ecc;
+    qf = genframe(value);
     qrc.lineWidth=1;
 
     var i,j;
@@ -759,6 +752,7 @@ function doqr() {
             if( qf[j*width+i] )
                 qrc.fillRect(px*(4+i),px*(4+j),px,px)
 }
+
 function generateQr(){
 	//document.write("breakpoint reached");
 	var teamNo = document.getElementById('team-no').value;
@@ -785,220 +779,162 @@ function generateQr(){
 
 	var csvLine = teamNo + "," + matchNo + "," + autoStability + ","+ autoStrategy + "," + baseline + "," + switchAuto + "," + scaleAuto + "," + vaultAuto + "," + ownSwitch + "," + opponent + "," + scale + "," + vault + "," + autoStability + "," + autoStrategy + "," + skill + "," + defense + "," + offence + "," + teleStability + "," + climb + "," + where + "," + park + "," + levitate + ","+ notes + "\r\n";
 
-	document.getElementById('qrinput').value = csvLine;
-	document.getElementById('qrbutton').click();
+	doqr(1, csvLine);
+    document.getElementById('qrcanv').scrollIntoView();
 
-}
-function show(){
-	document.getElementById('hidden').id = "where";
 }
 </script>
 </head>
 <body onload="setupqr()">
-<div id="qrdiv">
-<div class = text>
-<title>Peacce Scout</title>
-<h2>PEACCE Scouting Application</h2>
-<hr/>
-<div class = scout-form>
-		<h4>Team no:</h4><input onclick="this.select();" id = team-no type = tel placeholder="0" size = "4" maxlength="4">
-		<h4>Match no:</h4><input onclick="this.select();" id = match-no type = tel placeholder="0" size = "3" maxlength="4">
-		<hr/>
-		<h4>Auto:</h4>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Baseline:</h4>
-		<select id = baseline>
-			<option value = no>no</option>
-			<option value = yes>yes</option>
-		</select>
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Robot Speed:</h4>
-		<select id = baseline>
-			<option value = 1>1</option>
-			<option value = 2>2</option>
-			<option value = 3>3</option>
-			<option value = 4>4</option>
-			<option value = 5>5</option>
-		</select>
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Switch:</h4>
-		<select id = switch-auto>
-			<option value = no>no</option>
-			<option value = yes>yes</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Scale:</h4>
-		<select id = scale-auto>
-			<option value = no>no</option>
-			<option value = yes>yes</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Vault:</h4>
-		<select id = vault-auto>
-			<option value = no>no</option>
-			<option value = yes>yes</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Robot Stability:</h4>
-		<select id = stability>
-			<option value = 1>1</option>
-			<option value = 2>2</option>
-			<option value = 3>3</option>
-			<option value = 4>4</option>
-			<option value = 5>5</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Strategy:</h4>
-		<select id = strategy>
-			<option value = 1>1</option>
-			<option value = 2>2</option>
-			<option value = 3>3</option>
-			<option value = 4>4</option>
-			<option value = 5>5</option>
-		</select>
-		<hr/>
-		<h4  onclick = "javascript:alert('explanation');">Tele Op:</h4>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Robot Speed:</h4>
-		<select id = tele-speed>
-			<option value = 1>1</option>
-			<option value = 2>2</option>
-			<option value = 3>3</option>
-			<option value = 4>4</option>
-			<option value = 5>5</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Own Switch #:</h4><input onclick="this.select();" id = own-switch type = tel placeholder="0" size = "4" maxlength="2">
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Opponent #:</h4><input onclick="this.select();" id = opponent type = tel placeholder = "0" size = "4" maxlength="2">
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Scale #:</h4><input onclick="this.select();" id = scale type = tel placeholder="0" size = "4" maxlength="2">
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Vault #:</h4><input onclick="this.select();" id = vault type = tel placeholder = "0" size = "4" maxlength="2">
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Driver Skill:</h4>
-		<select id = skill>
-			<option value = 1>1</option>
-			<option value = 2>2</option>
-			<option value = 3>3</option>
-			<option value = 4>4</option>
-			<option value = 5>5</option>
-		</select>
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Defense:</h4>
-		<select id = defense>
-			<option value = no>No</option>
-			<option value = yes>Yes</option>
-		</select>
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Offence:</h4>
-		<select id = offence>
-			<option value = no>No</option>
-			<option value = yes>Yes</option>
-		</select>
-		<br/>
-		<h4  onclick = "javascript:alert('explanation');">Robot Stability:</h4>
-		<select id = tele-stability>
-			<option value = 1>1</option>
-			<option value = 2>2</option>
-			<option value = 3>3</option>
-			<option value = 4>4</option>
-			<option value = 5>5</option>
-		</select>
-		<hr/>
-		<h4  onclick = "javascript:alert('explanation');">Climb:</h4>
-		<select id = climb>
-			<option value = no>No</option>
-			<option value = yes onclick = "show()">Yes</option>
-		</select>
-		<br/>
-		<select id = where>
-			<option value = none>Where</option>
-			<option value = middle>Middle Rung</option>
-			<option value = l-rung>L Rung</option>
-			<option value = r-rung>R Rung</option>
-			<option value = r-arm>R Arm</option>
-			<option value = l-arm>L Arm</option>
-		</select>
-		<hr/>
-		<h4  onclick = "javascript:alert('explanation');">Park:</h4>
-		<select id = park>
-			<option value = no>No</option>
-			<option value = yes>Yes</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Levitate:</h4>
-		<select id = levitate>
-			<option value = no>No</option>
-			<option value = yes>Yes</option>
-		</select>
-		<br/>
-		<h4 onclick = "javascript:alert('explanation');">Notes:</h4><input id = notes type = text name = notes />
-		<br/>
-		<button onclick="generateQr()">Get QR Code</button>
-</div>
-</div>
-<hr/>
-<canvas id="qrcanv">No Canvas Support?</canvas>
-	<hr/>
-  <form name="qrinp" class=qrinp>
-    <input id = "qrbutton" type="button" value="Go" onclick="doqr()" />
-    <h4>ECC Level (1-4)<h4>
-    <input type="numeric" name="ECC" value="1" size="1"><br>
-    <input type = "text" name = "qrinput" id = qrinput />
-  </form>
-</div>
-<div id = string></div>
+    <div class = text>
+    <title>Peacce Scout</title>
+    <h2>PEACCE Scouting Application</h2>
+    <hr/>
+        <div class = scout-form>
+		    <h4>Team no:</h4><input onclick="this.select();" id = team-no type = tel placeholder="0" size = "4" maxlength="4">
+		    <h4>Match no:</h4><input onclick="this.select();" id = match-no type = tel placeholder="0" size = "3" maxlength="4">
+		    <hr/>
+		    <h4>Auto:</h4>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Baseline:</h4>
+		    <select id = baseline>
+			    <option value = no>no</option>
+			    <option value = yes>yes</option>
+		    </select>
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Robot Speed:</h4>
+		    <select id = baseline>
+			    <option value = 1>1</option>
+			    <option value = 2>2</option>
+			    <option value = 3>3</option>
+			    <option value = 4>4</option>
+			    <option value = 5>5</option>
+		    </select>
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Switch:</h4>
+		    <select id = switch-auto>
+			    <option value = no>no</option>
+			    <option value = yes>yes</option>
+		    </select>
+		    <br/>
+	    	<h4 onclick = "javascript:alert('explanation');">Scale:</h4>
+		    <select id = scale-auto>
+		    	<option value = no>no</option>
+		    	<option value = yes>yes</option>
+		    </select>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Vault:</h4>
+		    <select id = vault-auto>
+			    <option value = no>no</option>
+			    <option value = yes>yes</option>
+		    </select>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Robot Stability:</h4>
+		    <select id = stability>
+			    <option value = 1>1</option>
+			    <option value = 2>2</option>
+			    <option value = 3>3</option>
+			    <option value = 4>4</option>
+			    <option value = 5>5</option>
+		    </select>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Strategy:</h4>
+		    <select id = strategy>
+		    	<option value = 1>1</option>
+		    	<option value = 2>2</option>
+		    	<option value = 3>3</option>
+		    	<option value = 4>4</option>
+		    	<option value = 5>5</option>
+		    </select>
+		    <hr/>
+		    <h4  onclick = "javascript:alert('explanation');">Tele Op:</h4>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Robot Speed:</h4>
+		    <select id = tele-speed>
+		    	<option value = 1>1</option>
+		    	<option value = 2>2</option>
+		    	<option value = 3>3</option>
+		    	<option value = 4>4</option>
+		    	<option value = 5>5</option>
+		    </select>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Own Switch #:</h4><input onclick="this.select();" id = own-switch type = tel placeholder="0" size = "4" maxlength="2">
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Opponent #:</h4><input onclick="this.select();" id = opponent type = tel placeholder = "0" size = "4" maxlength="2">
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Scale #:</h4><input onclick="this.select();" id = scale type = tel placeholder="0" size = "4" maxlength="2">
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Vault #:</h4><input onclick="this.select();" id = vault type = tel placeholder = "0" size = "4" maxlength="2">
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Driver Skill:</h4>
+		    <select id = skill>
+		    	<option value = 1>1</option>
+		    	<option value = 2>2</option>
+		    	<option value = 3>3</option>
+		    	<option value = 4>4</option>
+		    	<option value = 5>5</option>
+		    </select>
+	    	<br/>
+		    <h4  onclick = "javascript:alert('explanation');">Defense:</h4>
+		    <select id = defense>
+		    	<option value = no>No</option>
+		    	<option value = yes>Yes</option>
+	    	</select>
+	    	<br/>
+	    	<h4  onclick = "javascript:alert('explanation');">Offence:</h4>
+	    	<select id = offence>
+		    	<option value = no>No</option>
+		    	<option value = yes>Yes</option>
+	    	</select>
+		    <br/>
+		    <h4  onclick = "javascript:alert('explanation');">Robot Stability:</h4>
+		    <select id = tele-stability>
+		    	<option value = 1>1</option>
+		        <option value = 2>2</option>
+			    <option value = 3>3</option>
+			    <option value = 4>4</option>
+			    <option value = 5>5</option>
+		    </select>
+		    <hr/>
+		    <h4  onclick = "javascript:alert('explanation');">Climb:</h4>
+		    <select id = climb>
+		    	<option value = no>No</option>
+		    	<option value = yes onclick = "show()">Yes</option>
+		    </select>
+		    <br/>
+		    <select id = where>
+		        <option value = none>Where</option>
+			    <option value = middle>Middle Rung</option>
+			    <option value = l-rung>L Rung</option>
+			    <option value = r-rung>R Rung</option>
+			    <option value = r-arm>R Arm</option>
+			    <option value = l-arm>L Arm</option>
+		    </select>
+		    <hr/>
+		    <h4  onclick = "javascript:alert('explanation');">Park:</h4>
+		    <select id = park>
+			    <option value = no>No</option>
+			    <option value = yes>Yes</option>
+		    </select>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Levitate:</h4>
+		    <select id = levitate>
+			    <option value = no>No</option>
+			    <option value = yes>Yes</option>
+		    </select>
+		    <br/>
+		    <h4 onclick = "javascript:alert('explanation');">Notes:</h4><input id = notes type = text name = notes />
+		    <br/>
+		    <button onclick="generateQr()">Get QR Code</button>
+        </div>
+    </div>
+    <hr/>
+    <canvas id="qrcanv">No Canvas Support?</canvas>
 </body>
 <style>
 body {
-	width: 100wh;
-	height: 200vh;
 	color: #000;
-	background: linear-gradient(-45deg, #ff0000, #00e100, #0012e1, #e10000, #e10000);
-	background-size: 400% 400%;
-	-webkit-animation: Gradient 15s ease infinite;
-	-moz-animation: Gradient 15s ease infinite;
-	animation: Gradient 15s ease infinite;
-  text-wrap:none;
 }
-
-@-webkit-keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
-@-moz-keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
-@keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
 h1,
 h6 {
 	font-family: 'Open Sans';
