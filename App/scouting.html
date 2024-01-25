@@ -768,182 +768,51 @@ function doqr(ecc, value) {
                 qrc.fillRect(px*(4+i),px*(4+j),px,px)
 }
 
+function returnElement(element){
+    switch(element.type.type){
+        case "text":
+            return `<input type="text" id="${element.name}" name="${element.name}"></input>`
+            break;
+        case "select":
+            let str = `<select id=${element.name}>`;
+            element.type.options.forEach((option) => {
+                str += `<option value = ${option}>${option}</option>`;
+            });
+            str += `<select>`        
+            return str;
+    }
+}
+
+function generateDynamic(){
+    //will generate the form dynamically based on json data:
+    const testJson = [{
+        name: "name",
+        type: {type: "text"},
+    },
+    {
+        name: "select",
+        type: {type: "select", options:[1, 2, 3, 4, 5]},
+    }];
+    const body = document.getElementById("dynamic");
+    testJson.forEach((element) => {
+        const html = returnElement(element);
+        console.log(html);
+        body.innerHTML += html;
+    });
+}
+
 function generateQr(){
-	//document.write("breakpoint reached");
-	var teamNo = document.getElementById('team-no').value;
-	var baseline = document.getElementById('baseline').value;
-	var switchAuto = document.getElementById('switch-auto').value;
-	var scaleAuto = document.getElementById('scale-auto').value;
-	var vaultAuto = document.getElementById('vault-auto').value;
-	var ownSwitch = document.getElementById('own-switch').value;
-	var opponent = document.getElementById('opponent').value;
-	var scale = document.getElementById('scale').value;
-	var vault = document.getElementById('vault').value;
-	var climb = document.getElementById('climb').value;
-	var park = document.getElementById('park').value;
-	var levitate = document.getElementById('levitate').value;
-	var notes = document.getElementById('notes').value;
-	var matchNo = document.getElementById('match-no').value;
-	var autoStability = document.getElementById('stability').value;
-	var autoStrategy = document.getElementById('strategy').value;
-	var skill = document.getElementById('skill').value;
-	var defense = document.getElementById('defense').value;
-	var offence = document.getElementById('offence').value;
-	var teleStability = document.getElementById('tele-stability').value;
-	var where = document.getElementById('where').value;
-
-	var csvLine = teamNo + "," + matchNo + "," + autoStability + ","+ autoStrategy + "," + baseline + "," + switchAuto + "," + scaleAuto + "," + vaultAuto + "," + ownSwitch + "," + opponent + "," + scale + "," + vault + "," + autoStability + "," + autoStrategy + "," + skill + "," + defense + "," + offence + "," + teleStability + "," + climb + "," + where + "," + park + "," + levitate + ","+ notes + "\r\n";
-
-	doqr(1, csvLine);
+	doqr(1, "hello");
     document.getElementById('qrcanv').scrollIntoView();
-
 }
 </script>
 </head>
-<body onload="setupqr()">
-    <div class = text>
+<body onload="setupqr(), generateDynamic()">
     <title>Peacce Scout</title>
     <h2>PEACCE Scouting Application</h2>
     <hr/>
-        <div class = scout-form>
-		    <h4>Team no:</h4><input onclick="this.select();" id = team-no type = tel placeholder="0" size = "4" maxlength="4">
-		    <h4>Match no:</h4><input onclick="this.select();" id = match-no type = tel placeholder="0" size = "3" maxlength="4">
-		    <hr/>
-		    <h4>Auto:</h4>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Baseline:</h4>
-		    <select id = baseline>
-			    <option value = no>no</option>
-			    <option value = yes>yes</option>
-		    </select>
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Robot Speed:</h4>
-		    <select id = baseline>
-			    <option value = 1>1</option>
-			    <option value = 2>2</option>
-			    <option value = 3>3</option>
-			    <option value = 4>4</option>
-			    <option value = 5>5</option>
-		    </select>
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Switch:</h4>
-		    <select id = switch-auto>
-			    <option value = no>no</option>
-			    <option value = yes>yes</option>
-		    </select>
-		    <br/>
-	    	<h4 onclick = "javascript:alert('explanation');">Scale:</h4>
-		    <select id = scale-auto>
-		    	<option value = no>no</option>
-		    	<option value = yes>yes</option>
-		    </select>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Vault:</h4>
-		    <select id = vault-auto>
-			    <option value = no>no</option>
-			    <option value = yes>yes</option>
-		    </select>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Robot Stability:</h4>
-		    <select id = stability>
-			    <option value = 1>1</option>
-			    <option value = 2>2</option>
-			    <option value = 3>3</option>
-			    <option value = 4>4</option>
-			    <option value = 5>5</option>
-		    </select>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Strategy:</h4>
-		    <select id = strategy>
-		    	<option value = 1>1</option>
-		    	<option value = 2>2</option>
-		    	<option value = 3>3</option>
-		    	<option value = 4>4</option>
-		    	<option value = 5>5</option>
-		    </select>
-		    <hr/>
-		    <h4  onclick = "javascript:alert('explanation');">Tele Op:</h4>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Robot Speed:</h4>
-		    <select id = tele-speed>
-		    	<option value = 1>1</option>
-		    	<option value = 2>2</option>
-		    	<option value = 3>3</option>
-		    	<option value = 4>4</option>
-		    	<option value = 5>5</option>
-		    </select>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Own Switch #:</h4><input onclick="this.select();" id = own-switch type = tel placeholder="0" size = "4" maxlength="2">
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Opponent #:</h4><input onclick="this.select();" id = opponent type = tel placeholder = "0" size = "4" maxlength="2">
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Scale #:</h4><input onclick="this.select();" id = scale type = tel placeholder="0" size = "4" maxlength="2">
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Vault #:</h4><input onclick="this.select();" id = vault type = tel placeholder = "0" size = "4" maxlength="2">
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Driver Skill:</h4>
-		    <select id = skill>
-		    	<option value = 1>1</option>
-		    	<option value = 2>2</option>
-		    	<option value = 3>3</option>
-		    	<option value = 4>4</option>
-		    	<option value = 5>5</option>
-		    </select>
-	    	<br/>
-		    <h4  onclick = "javascript:alert('explanation');">Defense:</h4>
-		    <select id = defense>
-		    	<option value = no>No</option>
-		    	<option value = yes>Yes</option>
-	    	</select>
-	    	<br/>
-	    	<h4  onclick = "javascript:alert('explanation');">Offence:</h4>
-	    	<select id = offence>
-		    	<option value = no>No</option>
-		    	<option value = yes>Yes</option>
-	    	</select>
-		    <br/>
-		    <h4  onclick = "javascript:alert('explanation');">Robot Stability:</h4>
-		    <select id = tele-stability>
-		    	<option value = 1>1</option>
-		        <option value = 2>2</option>
-			    <option value = 3>3</option>
-			    <option value = 4>4</option>
-			    <option value = 5>5</option>
-		    </select>
-		    <hr/>
-		    <h4  onclick = "javascript:alert('explanation');">Climb:</h4>
-		    <select id = climb>
-		    	<option value = no>No</option>
-		    	<option value = yes onclick = "show()">Yes</option>
-		    </select>
-		    <br/>
-		    <select id = where>
-		        <option value = none>Where</option>
-			    <option value = middle>Middle Rung</option>
-			    <option value = l-rung>L Rung</option>
-			    <option value = r-rung>R Rung</option>
-			    <option value = r-arm>R Arm</option>
-			    <option value = l-arm>L Arm</option>
-		    </select>
-		    <hr/>
-		    <h4  onclick = "javascript:alert('explanation');">Park:</h4>
-		    <select id = park>
-			    <option value = no>No</option>
-			    <option value = yes>Yes</option>
-		    </select>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Levitate:</h4>
-		    <select id = levitate>
-			    <option value = no>No</option>
-			    <option value = yes>Yes</option>
-		    </select>
-		    <br/>
-		    <h4 onclick = "javascript:alert('explanation');">Notes:</h4><input id = notes type = text name = notes />
-		    <br/>
-		    <button onclick="generateQr()">Get QR Code</button>
-        </div>
-    </div>
-    <hr/>
+    <div id = "dynamic"></div>
+	<button onclick="generateQr()">Get QR Code</button>
     <canvas id="qrcanv">No Canvas Support?</canvas>
 </body>
 </html>
