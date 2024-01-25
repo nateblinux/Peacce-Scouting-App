@@ -5,9 +5,24 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-touch-fullscreen" content="yes" />
 <style type="text/css">
-  body { width:100%; margin: 0px; padding: 0px; }
+  body { width:100%; margin: 0px; padding: 0px; color: #000;}
   div#qrdiv {width:200px; height:200px;}
-  .qrinp{/*display:none;*/}
+  h1,
+h6 {
+	font-family: 'Open Sans';
+	font-weight: 300;
+	text-align: center;
+	position: absolute;
+	top: 45%;
+	right: 0;
+	left: 0;
+}
+.text{
+  margin-left: 10%;
+}
+hr{
+  margin-left: 0;
+}
 </style>
 
 <script type="text/javascript">
@@ -931,25 +946,4 @@ function generateQr(){
     <hr/>
     <canvas id="qrcanv">No Canvas Support?</canvas>
 </body>
-<style>
-body {
-	color: #000;
-}
-h1,
-h6 {
-	font-family: 'Open Sans';
-	font-weight: 300;
-	text-align: center;
-	position: absolute;
-	top: 45%;
-	right: 0;
-	left: 0;
-}
-.text{
-  margin-left: 10%;
-}
-hr{
-  margin-left: 0;
-}
-</style>
 </html>
