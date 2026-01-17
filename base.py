@@ -27,7 +27,7 @@ def cvCap(webPort):
         return_value,image = camera.read()
         gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
         cv2.imshow('Peacce Scout Webcam Grey View',image)
-        found, info, pts, _ = qrDetector.detectAndDecodeMulti(gray)
+        found, info, pts, _ = qrDetector.detectAndDecodeMulti(image)
     
         if found:
             if(len(info[0]) < 1):
